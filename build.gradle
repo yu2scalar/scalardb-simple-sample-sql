@@ -10,6 +10,8 @@ repositories {
 }
 
 dependencies {
+    implementation 'com.scalar-labs:scalardb-sql:3.16.1'
+    implementation 'com.scalar-labs:scalardb-cluster-java-client-sdk:3.16.1'
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
