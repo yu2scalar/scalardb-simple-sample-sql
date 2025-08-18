@@ -14,7 +14,7 @@ public class UpsertRecord {
         try {
             // Load ScalarDB configuration
             Properties properties = new Properties();
-            properties.load(new FileInputStream("scalardb_sql.properties"));
+            properties.load(new FileInputStream("scalardb-sql.properties"));
             
             // Create SqlSession
             SqlSessionFactory sessionFactory = SqlSessionFactory.builder()
