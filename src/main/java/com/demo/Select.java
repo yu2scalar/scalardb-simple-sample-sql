@@ -10,9 +10,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 
-public class ScanRecord {
+public class Select {
     public static void main(String[] args) {
-        System.out.println("Scanning records using SQL SELECT...");
+        System.out.println("Selecting record using SQL SELECT...");
         
         try {
             // Load ScalarDB configuration
@@ -25,26 +25,25 @@ public class ScanRecord {
                     .build();
             
             try (SqlSession session = sessionFactory.createSqlSession()) {
-                // Scan all records
-                System.out.println("Scanning all records:");
-                String scanSql = "SELECT * FROM sample_ns.sample_table";
-                ResultSet resultSet = session.execute(scanSql);
+                // Select all records
+                String selectSql = "SELECT * FROM sample_ns.sample_table";
+                ResultSet resultSet = session.execute(selectSql);
                 List<Record> records = resultSet.all();
                 
                 if (records.isEmpty()) {
-                    System.out.println("  No records found");
+                    System.out.println("No records found");
                 } else {
+                    System.out.println("Records found:");
                     for (Record record : records) {
                         System.out.println("  ID: " + record.getInt("id") + 
                                          ", Name: " + record.getText("name") + 
                                          ", Age: " + record.getInt("age") + 
                                          ", Email: " + record.getText("email"));
                     }
-                    System.out.println("  Total: " + records.size() + " record(s)");
                 }
                 
             } catch (Exception e) {
-                System.err.println("Error scanning records: " + e.getMessage());
+                System.err.println("Error getting record: " + e.getMessage());
                 e.printStackTrace();
             }
             

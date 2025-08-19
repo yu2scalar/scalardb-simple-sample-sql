@@ -4,13 +4,14 @@ import com.scalar.db.sql.Record;
 import com.scalar.db.sql.ResultSet;
 import com.scalar.db.sql.SqlSession;
 import com.scalar.db.sql.SqlSessionFactory;
+import com.scalar.db.sql.exception.SqlException;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 
-public class DeleteRecord {
+public class Delete {
     public static void main(String[] args) {
         System.out.println("Deleting record using SQL DELETE...");
         
@@ -38,17 +39,10 @@ public class DeleteRecord {
                                      ", Email: " + record.getText("email"));
                 }
                 
-                // Begin transaction
-                session.begin();
-                
                 // Delete a specific record
-                String deleteSql = "DELETE FROM sample_ns.sample_table WHERE id = 2";
+                String deleteSql = "DELETE FROM sample_ns.sample_table WHERE id = 1";
                 session.execute(deleteSql);
-                System.out.println("\nRecord with ID = 2 deleted successfully");
-                
-                // Commit transaction
-                session.commit();
-                System.out.println("Transaction committed");
+                System.out.println("\nRecord with ID = 1 deleted successfully");
                 
                 // Show records after delete
                 System.out.println("\nRecords after delete:");
@@ -66,16 +60,13 @@ public class DeleteRecord {
                     }
                 }
                 
-            } catch (Exception e) {
+            } catch (SqlException e) {
                 System.err.println("Error deleting record: " + e.getMessage());
                 e.printStackTrace();
             }
             
         } catch (IOException e) {
             System.err.println("Error loading configuration file: " + e.getMessage());
-            e.printStackTrace();
-        } catch (Exception e) {
-            System.err.println("Error initializing ScalarDB: " + e.getMessage());
             e.printStackTrace();
         }
     }
